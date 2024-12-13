@@ -1,6 +1,6 @@
 <div class="max-w-md mx-auto mt-16 p-8 border border-gray-300 rounded-lg shadow-lg">
     <h2 class="text-2xl font-semibold text-center mb-6">Login</h2>
-    <form (submit)="login()">
+    <form (ngSubmit)="onLogin()" #loginForm="ngForm">
         <div class="mb-4">
             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
             <input
@@ -10,7 +10,9 @@
                     name="email"
                     class="mt-1 p-2 w-full border rounded-md focus:ring-2 focus:ring-blue-400"
                     required
+                    #email="ngModel"
             />
+            <div *ngIf="email.invalid && email.touched" class="text-red-500 text-sm">Email is required.</div>
         </div>
         <div class="mb-6">
             <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
@@ -21,10 +23,13 @@
                     name="password"
                     class="mt-1 p-2 w-full border rounded-md focus:ring-2 focus:ring-blue-400"
                     required
+                    #password="ngModel"
             />
+            <div *ngIf="password.invalid && password.touched" class="text-red-500 text-sm">Password is required.</div>
         </div>
         <button
                 type="submit"
+                [disabled]="loginForm.invalid"
                 class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
         >
             Login

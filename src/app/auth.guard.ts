@@ -6,20 +6,19 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-
     constructor(private router: Router) {}
 
     canActivate(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<boolean> | Promise<boolean> | boolean {
-        // Check if JWT token exists in localStorage
+        // Check if the token exists in localStorage
         const token = localStorage.getItem('token');
         if (token) {
-            // Token exists, allow access
+            // User is authenticated, allow access
             return true;
         } else {
-            // Token doesn't exist, redirect to login page
+            // Redirect to login page
             this.router.navigate(['/login']);
             return false;
         }
